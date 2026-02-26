@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #search-input {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            width: 300px;
+            max-width: 90vw;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #search-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            background: #ffcb05;
+            color: #2a75bb;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        #search-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pokemon-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .pokemon-card img {
+            width: 120px;
+            height: 120px;
+            image-rendering: pixelated;
+        }
+
+        .pokemon-card .id {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .pokemon-card .name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+
+        .types {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .type-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .type-normal { background: #a8a878; }
+        .type-fire { background: #f08030; }
+        .type-water { background: #6890f0; }
+        .type-electric { background: #f8d030; color: #333; }
+        .type-grass { background: #78c850; }
+        .type-ice { background: #98d8d8; color: #333; }
+        .type-fighting { background: #c03028; }
+        .type-poison { background: #a040a0; }
+        .type-ground { background: #e0c068; color: #333; }
+        .type-flying { background: #a890f0; }
+        .type-psychic { background: #f85888; }
+        .type-bug { background: #a8b820; }
+        .type-rock { background: #b8a038; }
+        .type-ghost { background: #705898; }
+        .type-dragon { background: #7038f8; }
+        .type-dark { background: #705848; }
+        .type-steel { background: #b8b8d0; color: #333; }
+        .type-fairy { background: #ee99ac; }
+
+        .loading {
+            text-align: center;
+            color: #fff;
+            font-size: 1.3rem;
+            padding: 40px;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ffcb05;
+            font-size: 1.2rem;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .load-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        #load-more-btn {
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            border: 3px solid #fff;
+            border-radius: 30px;
+            background: transparent;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #load-more-btn:hover {
+            background: #fff;
+            color: #764ba2;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            background: none;
+            border: none;
+        }
+
+        .modal img {
+            width: 150px;
+            height: 150px;
+            image-rendering: pixelated;
+        }
+
+        .modal .name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: capitalize;
+            margin: 10px 0;
+        }
+
+        .modal .stats {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stat-name {
+            width: 120px;
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: capitalize;
+        }
+
+        .stat-bar-bg {
+            flex: 1;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .stat-bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+
+        .stat-value {
+            width: 35px;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal .details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pokémon</h1>
+    <p class="subtitle">Klikk på en Pokémon for å se detaljer</p>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Søk etter Pokémon...">
+        <button id="search-btn">Søk</button>
+    </div>
+
+    <div id="pokemon-container" class="pokemon-grid"></div>
+    <div id="loading" class="loading" style="display:none;">Laster Pokémon...</div>
+    <div id="error" class="error-message" style="display:none;"></div>
+
+    <div class="load-more" id="load-more" style="display:none;">
+        <button id="load-more-btn">Last inn flere</button>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('pokemon-container');
+        const loading = document.getElementById('loading');
+        const errorEl = document.getElementById('error');
+        const loadMoreContainer = document.getElementById('load-more');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+
+        let offset = 0;
+        const limit = 20;
+        let isSearching = false;
+
+        async function fetchPokemonList(offset, limit) {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+            if (!res.ok) throw new Error('Kunne ikke hente Pokémon-data');
+            return res.json();
+        }
+
+        async function fetchPokemonDetails(url) {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Kunne ikke hente detaljer');
+            return res.json();
+        }
+
+        function createCard(pokemon) {
+            const card = document.createElement('div');
+            card.className = 'pokemon-card';
+
+            const sprite = pokemon.sprites.other['official-artwork'].front_default
+                || pokemon.sprites.front_default;
+
+            const typeBadges = pokemon.types.map(t =>
+                `<span class="type-badge type-${t.type.name}">${t.type.name}</span>`
+            ).join('');
+
+            card.innerHTML = `
+                <div class="id">#${String(pokemon.id).padStart(3, '0')}</div>
+                <img src="${sprite}" alt="${pokemon.name}" loading="lazy">
+                <div class="name">${pokemon.name}</div>
+                <div class="types">${typeBadges}</div>
+            `;
+
+            card.addEventListener('click', () => showModal(pokemon));
+            return card;
+        }
+
+        function showModal(pokemon) {
+            const sprite = pokemon.sprites.other['official-artwork'].front_default
+                || pokemon.sprites.front_default;
+
+            const typeBadges = pokemon.types.map(t =>
+                `<span class="type-badge type-${t.type.name}">${t.type.name}</span>`
+            ).join('');
+
+            const statsHTML = pokemon.stats.map(s => {
+                const pct = Math.min(100, (s.base_stat / 255) * 100);
+                return `
+                    <div class="stat-row">
+                        <span class="stat-name">${s.stat.name.replace('-', ' ')}</span>
+                        <div class="stat-bar-bg">
+                            <div class="stat-bar" style="width: ${pct}%"></div>
+                        </div>
+                        <span class="stat-value">${s.base_stat}</span>
+                    </div>
+                `;
+            }).join('');
+
+            modal.innerHTML = `
+                <button class="modal-close" id="modal-close">&times;</button>
+                <div class="id">#${String(pokemon.id).padStart(3, '0')}</div>
+                <img src="${sprite}" alt="${pokemon.name}">
+                <div class="name">${pokemon.name}</div>
+                <div class="types">${typeBadges}</div>
+                <div class="details">
+                    <span>Høyde: ${(pokemon.height / 10).toFixed(1)} m</span>
+                    <span>Vekt: ${(pokemon.weight / 10).toFixed(1)} kg</span>
+                </div>
+                <div class="stats">${statsHTML}</div>
+            `;
+
+            document.getElementById('modal-close').addEventListener('click', closeModal);
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        async function loadPokemon() {
+            loading.style.display = 'block';
+            loadMoreContainer.style.display = 'none';
+            errorEl.style.display = 'none';
+
+            try {
+                const data = await fetchPokemonList(offset, limit);
+                const details = await Promise.all(
+                    data.results.map(p => fetchPokemonDetails(p.url))
+                );
+
+                details.forEach(pokemon => {
+                    container.appendChild(createCard(pokemon));
+                });
+
+                offset += limit;
+                loading.style.display = 'none';
+
+                if (data.next) {
+                    loadMoreContainer.style.display = 'flex';
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                errorEl.textContent = 'Noe gikk galt: ' + err.message;
+                errorEl.style.display = 'block';
+            }
+        }
+
+        async function searchPokemon(query) {
+            if (!query.trim()) {
+                isSearching = false;
+                container.innerHTML = '';
+                offset = 0;
+                loadPokemon();
+                return;
+            }
+
+            isSearching = true;
+            container.innerHTML = '';
+            loading.style.display = 'block';
+            loadMoreContainer.style.display = 'none';
+            errorEl.style.display = 'none';
+
+            try {
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase().trim()}`);
+                if (!res.ok) throw new Error('Fant ingen Pokémon med det navnet');
+                const pokemon = await res.json();
+                container.appendChild(createCard(pokemon));
+                loading.style.display = 'none';
+            } catch (err) {
+                loading.style.display = 'none';
+                errorEl.textContent = 'Fant ingen Pokémon med navnet "' + query + '"';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        searchBtn.addEventListener('click', () => searchPokemon(searchInput.value));
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') searchPokemon(searchInput.value);
+        });
+
+        loadMoreBtn.addEventListener('click', loadPokemon);
+
+        // Start
+        loadPokemon();
+    </script>
+</body>
+</html>
