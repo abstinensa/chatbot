@@ -252,6 +252,19 @@
         const errorEl = document.getElementById('error');
         const downloadBtn = document.getElementById('download-btn');
 
+        // Polyfill for roundRect (not supported in all browsers)
+        function roundRect(ctx, x, y, w, h, r) {
+            if (w < 2 * r) r = w / 2;
+            if (h < 2 * r) r = h / 2;
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+
         let uploadedImage = null;
 
         const POKEMON_TYPES = [
@@ -356,14 +369,12 @@
             grad.addColorStop(0, type1.bg);
             grad.addColorStop(1, type1.color);
             ctx.fillStyle = grad;
-            ctx.beginPath();
-            ctx.roundRect(0, 0, w, h, 15);
+            roundRect(ctx, 0, 0, w, h, 15);
             ctx.fill();
 
             // Inner card
             ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-            ctx.beginPath();
-            ctx.roundRect(12, 12, w - 24, h - 24, 10);
+            roundRect(ctx, 12, 12, w - 24, h - 24, 10);
             ctx.fill();
 
             // Header: name + HP
@@ -382,8 +393,7 @@
             let typeX = w - 25;
             if (type2) {
                 ctx.fillStyle = type2.color;
-                ctx.beginPath();
-                ctx.roundRect(typeX - 60, 52, 60, 22, 11);
+                roundRect(ctx, typeX - 60, 52, 60, 22, 11);
                 ctx.fill();
                 ctx.fillStyle = '#fff';
                 ctx.font = 'bold 11px "Segoe UI", sans-serif';
@@ -392,8 +402,7 @@
                 typeX -= 68;
             }
             ctx.fillStyle = type1.color;
-            ctx.beginPath();
-            ctx.roundRect(typeX - 60, 52, 60, 22, 11);
+            roundRect(ctx, typeX - 60, 52, 60, 22, 11);
             ctx.fill();
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 11px "Segoe UI", sans-serif';
@@ -407,8 +416,7 @@
             imgGrad.addColorStop(0, type1.bg + '60');
             imgGrad.addColorStop(1, type1.color + '30');
             ctx.fillStyle = imgGrad;
-            ctx.beginPath();
-            ctx.roundRect(25, imgAreaY, w - 50, imgAreaH, 8);
+            roundRect(ctx, 25, imgAreaY, w - 50, imgAreaH, 8);
             ctx.fill();
             ctx.strokeStyle = type1.color + '80';
             ctx.lineWidth = 2;
@@ -427,8 +435,7 @@
                 const imgY = imgAreaY + (imgAreaH - imgH) / 2;
 
                 ctx.save();
-                ctx.beginPath();
-                ctx.roundRect(imgX, imgY, imgW, imgH, 6);
+                roundRect(ctx, imgX, imgY, imgW, imgH, 6);
                 ctx.clip();
                 ctx.drawImage(uploadedImage, imgX, imgY, imgW, imgH);
                 ctx.restore();
@@ -462,8 +469,7 @@
 
                 // Bar background
                 ctx.fillStyle = '#eee';
-                ctx.beginPath();
-                ctx.roundRect(110, y + 4, barMaxW, 12, 6);
+                roundRect(ctx, 110, y + 4, barMaxW, 12, 6);
                 ctx.fill();
 
                 // Bar fill
@@ -472,8 +478,7 @@
                 barGrad.addColorStop(0, type1.color);
                 barGrad.addColorStop(1, type1.bg);
                 ctx.fillStyle = barGrad;
-                ctx.beginPath();
-                ctx.roundRect(110, y + 4, barMaxW * pct, 12, 6);
+                roundRect(ctx, 110, y + 4, Math.max(barMaxW * pct, 1), 12, 6);
                 ctx.fill();
 
                 // Value
@@ -498,9 +503,15 @@
             generateBtn.disabled = true;
 
             setTimeout(() => {
-                drawCard(name);
-                loadingEl.classList.remove('visible');
-                card.classList.add('visible');
+                try {
+                    drawCard(name);
+                    loadingEl.classList.remove('visible');
+                    card.classList.add('visible');
+                } catch (err) {
+                    loadingEl.classList.remove('visible');
+                    errorEl.textContent = 'Noe gikk galt: ' + err.message;
+                    errorEl.classList.add('visible');
+                }
                 generateBtn.disabled = false;
             }, 500);
         });
