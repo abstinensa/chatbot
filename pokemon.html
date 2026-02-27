@@ -221,7 +221,7 @@
         <label for="name-input">Skriv navnet ditt</label>
         <input type="text" id="name-input" placeholder="Ditt navn...">
 
-        <label>Last opp bilde</label>
+        <label>Last opp bilde av deg selv</label>
         <div class="upload-area" id="upload-area">
             <div id="upload-text">Klikk her eller dra et bilde</div>
             <input type="file" id="file-input" accept="image/*">
@@ -230,8 +230,8 @@
 
     <button id="generate-btn">Generer Pokémon</button>
 
-    <div class="loading-spinner" id="loading">Genererer Pokémon-kort...</div>
-    <div class="error-message" id="error">Skriv inn navnet ditt først!</div>
+    <div class="loading-spinner" id="loading">Henter Pokémon og lager fusjon...</div>
+    <div class="error-message" id="error">Skriv inn navn og last opp et bilde!</div>
 
     <div class="pokemon-card" id="pokemon-card">
         <canvas id="pokemon-canvas" width="400" height="560"></canvas>
@@ -252,7 +252,6 @@
         const errorEl = document.getElementById('error');
         const downloadBtn = document.getElementById('download-btn');
 
-        // Polyfill for roundRect (not supported in all browsers)
         function roundRect(ctx, x, y, w, h, r) {
             if (w < 2 * r) r = w / 2;
             if (h < 2 * r) r = h / 2;
@@ -267,33 +266,90 @@
 
         let uploadedImage = null;
 
-        const POKEMON_TYPES = [
-            { name: 'Fire', color: '#f08030', bg: '#f8a060' },
-            { name: 'Water', color: '#6890f0', bg: '#88b0f8' },
-            { name: 'Grass', color: '#78c850', bg: '#a0d878' },
-            { name: 'Electric', color: '#f8d030', bg: '#f8e870' },
-            { name: 'Psychic', color: '#f85888', bg: '#f890a8' },
-            { name: 'Ice', color: '#98d8d8', bg: '#b8e8e8' },
-            { name: 'Dragon', color: '#7038f8', bg: '#9868f8' },
-            { name: 'Dark', color: '#705848', bg: '#988070' },
-            { name: 'Fairy', color: '#ee99ac', bg: '#f0b8c8' },
-            { name: 'Fighting', color: '#c03028', bg: '#d06058' },
-            { name: 'Poison', color: '#a040a0', bg: '#c068c0' },
-            { name: 'Ghost', color: '#705898', bg: '#9880b8' },
-            { name: 'Steel', color: '#b8b8d0', bg: '#d0d0e0' },
-            { name: 'Flying', color: '#a890f0', bg: '#c0b0f8' },
-            { name: 'Bug', color: '#a8b820', bg: '#c0d050' },
-            { name: 'Rock', color: '#b8a038', bg: '#d0c060' },
-            { name: 'Ground', color: '#e0c068', bg: '#e8d890' },
-            { name: 'Normal', color: '#a8a878', bg: '#c0c0a0' },
+        // Real Pokémon with their Pokédex IDs, types, and base stats
+        const POKEMON_LIST = [
+            { id: 1, name: 'Bulbasaur', types: ['Grass', 'Poison'], hp: 45 },
+            { id: 4, name: 'Charmander', types: ['Fire'], hp: 39 },
+            { id: 7, name: 'Squirtle', types: ['Water'], hp: 44 },
+            { id: 25, name: 'Pikachu', types: ['Electric'], hp: 35 },
+            { id: 35, name: 'Clefairy', types: ['Fairy'], hp: 70 },
+            { id: 37, name: 'Vulpix', types: ['Fire'], hp: 38 },
+            { id: 39, name: 'Jigglypuff', types: ['Normal', 'Fairy'], hp: 115 },
+            { id: 52, name: 'Meowth', types: ['Normal'], hp: 40 },
+            { id: 54, name: 'Psyduck', types: ['Water'], hp: 50 },
+            { id: 58, name: 'Growlithe', types: ['Fire'], hp: 55 },
+            { id: 63, name: 'Abra', types: ['Psychic'], hp: 25 },
+            { id: 66, name: 'Machop', types: ['Fighting'], hp: 70 },
+            { id: 74, name: 'Geodude', types: ['Rock', 'Ground'], hp: 40 },
+            { id: 77, name: 'Ponyta', types: ['Fire'], hp: 50 },
+            { id: 92, name: 'Gastly', types: ['Ghost', 'Poison'], hp: 30 },
+            { id: 104, name: 'Cubone', types: ['Ground'], hp: 50 },
+            { id: 116, name: 'Horsea', types: ['Water'], hp: 30 },
+            { id: 120, name: 'Staryu', types: ['Water'], hp: 30 },
+            { id: 129, name: 'Magikarp', types: ['Water'], hp: 20 },
+            { id: 133, name: 'Eevee', types: ['Normal'], hp: 55 },
+            { id: 143, name: 'Snorlax', types: ['Normal'], hp: 160 },
+            { id: 147, name: 'Dratini', types: ['Dragon'], hp: 41 },
+            { id: 150, name: 'Mewtwo', types: ['Psychic'], hp: 106 },
+            { id: 152, name: 'Chikorita', types: ['Grass'], hp: 45 },
+            { id: 155, name: 'Cyndaquil', types: ['Fire'], hp: 39 },
+            { id: 158, name: 'Totodile', types: ['Water'], hp: 50 },
+            { id: 172, name: 'Pichu', types: ['Electric'], hp: 20 },
+            { id: 175, name: 'Togepi', types: ['Fairy'], hp: 35 },
+            { id: 179, name: 'Mareep', types: ['Electric'], hp: 55 },
+            { id: 196, name: 'Espeon', types: ['Psychic'], hp: 65 },
+            { id: 197, name: 'Umbreon', types: ['Dark'], hp: 95 },
+            { id: 246, name: 'Larvitar', types: ['Rock', 'Ground'], hp: 50 },
+            { id: 252, name: 'Treecko', types: ['Grass'], hp: 40 },
+            { id: 255, name: 'Torchic', types: ['Fire'], hp: 45 },
+            { id: 258, name: 'Mudkip', types: ['Water'], hp: 50 },
+            { id: 280, name: 'Ralts', types: ['Psychic', 'Fairy'], hp: 28 },
+            { id: 302, name: 'Sableye', types: ['Dark', 'Ghost'], hp: 50 },
+            { id: 304, name: 'Aron', types: ['Steel', 'Rock'], hp: 50 },
+            { id: 333, name: 'Swablu', types: ['Normal', 'Flying'], hp: 45 },
+            { id: 349, name: 'Feebas', types: ['Water'], hp: 20 },
+            { id: 363, name: 'Spheal', types: ['Ice', 'Water'], hp: 70 },
+            { id: 387, name: 'Turtwig', types: ['Grass'], hp: 55 },
+            { id: 390, name: 'Chimchar', types: ['Fire'], hp: 44 },
+            { id: 393, name: 'Piplup', types: ['Water'], hp: 53 },
+            { id: 403, name: 'Shinx', types: ['Electric'], hp: 45 },
+            { id: 427, name: 'Buneary', types: ['Normal'], hp: 55 },
+            { id: 443, name: 'Gible', types: ['Dragon', 'Ground'], hp: 58 },
+            { id: 447, name: 'Riolu', types: ['Fighting'], hp: 40 },
+            { id: 495, name: 'Snivy', types: ['Grass'], hp: 45 },
+            { id: 498, name: 'Tepig', types: ['Fire'], hp: 65 },
+            { id: 501, name: 'Oshawott', types: ['Water'], hp: 55 },
+            { id: 532, name: 'Timburr', types: ['Fighting'], hp: 75 },
+            { id: 559, name: 'Scraggy', types: ['Dark', 'Fighting'], hp: 50 },
+            { id: 570, name: 'Zorua', types: ['Dark'], hp: 40 },
+            { id: 607, name: 'Litwick', types: ['Ghost', 'Fire'], hp: 50 },
+            { id: 613, name: 'Cubchoo', types: ['Ice'], hp: 55 },
+            { id: 633, name: 'Deino', types: ['Dark', 'Dragon'], hp: 52 },
+            { id: 650, name: 'Chespin', types: ['Grass'], hp: 56 },
+            { id: 653, name: 'Fennekin', types: ['Fire'], hp: 40 },
+            { id: 656, name: 'Froakie', types: ['Water'], hp: 41 },
         ];
 
-        const POKEMON_SUFFIXES = [
-            'zard', 'saur', 'tle', 'chu', 'dge', 'eon', 'ix', 'bat',
-            'puff', 'toise', 'drill', 'bell', 'dot', 'lax', 'mew',
-            'tar', 'ran', 'don', 'nite', 'gon', 'gar', 'star', 'king',
-            'duck', 'ape', 'fox', 'owl', 'wolf', 'fang', 'claw'
-        ];
+        const TYPE_COLORS = {
+            'Normal':   { color: '#a8a878', bg: '#c0c0a0' },
+            'Fire':     { color: '#f08030', bg: '#f8a060' },
+            'Water':    { color: '#6890f0', bg: '#88b0f8' },
+            'Grass':    { color: '#78c850', bg: '#a0d878' },
+            'Electric': { color: '#f8d030', bg: '#f8e870' },
+            'Psychic':  { color: '#f85888', bg: '#f890a8' },
+            'Ice':      { color: '#98d8d8', bg: '#b8e8e8' },
+            'Dragon':   { color: '#7038f8', bg: '#9868f8' },
+            'Dark':     { color: '#705848', bg: '#988070' },
+            'Fairy':    { color: '#ee99ac', bg: '#f0b8c8' },
+            'Fighting': { color: '#c03028', bg: '#d06058' },
+            'Poison':   { color: '#a040a0', bg: '#c068c0' },
+            'Ghost':    { color: '#705898', bg: '#9880b8' },
+            'Steel':    { color: '#b8b8d0', bg: '#d0d0e0' },
+            'Flying':   { color: '#a890f0', bg: '#c0b0f8' },
+            'Bug':      { color: '#a8b820', bg: '#c0d050' },
+            'Rock':     { color: '#b8a038', bg: '#d0c060' },
+            'Ground':   { color: '#e0c068', bg: '#e8d890' },
+        };
 
         // Upload handlers
         uploadArea.addEventListener('click', () => fileInput.click());
@@ -342,27 +398,39 @@
             };
         }
 
-        function generatePokemonName(playerName, rng) {
-            const prefix = playerName.substring(0, Math.min(3, playerName.length)).toLowerCase();
-            const suffix = POKEMON_SUFFIXES[Math.floor(rng() * POKEMON_SUFFIXES.length)];
-            return prefix.charAt(0).toUpperCase() + prefix.slice(1) + suffix;
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error('Kunne ikke laste Pokémon-bilde'));
+                img.src = src;
+            });
         }
 
-        function drawCard(playerName) {
-            const rng = seededRandom(playerName + Date.now());
-            const type1 = POKEMON_TYPES[Math.floor(rng() * POKEMON_TYPES.length)];
-            let type2 = null;
-            if (rng() > 0.5) {
-                type2 = POKEMON_TYPES[Math.floor(rng() * POKEMON_TYPES.length)];
-                if (type2.name === type1.name) type2 = null;
-            }
+        function getPokemonSpriteUrl(id) {
+            return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        }
 
-            const pokemonName = generatePokemonName(playerName, rng);
-            const hp = Math.floor(rng() * 200) + 50;
-            const pokedexNum = Math.floor(rng() * 900) + 100;
+        async function drawCard(playerName) {
+            const rng = seededRandom(playerName.toLowerCase());
+
+            // Pick a Pokémon based on name
+            const pokemon = POKEMON_LIST[Math.floor(rng() * POKEMON_LIST.length)];
+            const type1 = TYPE_COLORS[pokemon.types[0]];
+            const type2 = pokemon.types[1] ? TYPE_COLORS[pokemon.types[1]] : null;
+
+            // Fetch the Pokémon sprite
+            const spriteUrl = getPokemonSpriteUrl(pokemon.id);
+            const spriteImg = await loadImage(spriteUrl);
+
+            const hp = pokemon.hp + Math.floor(rng() * 50);
 
             const w = canvas.width;
             const h = canvas.height;
+
+            // Clear
+            ctx.clearRect(0, 0, w, h);
 
             // Card background
             const grad = ctx.createLinearGradient(0, 0, w, h);
@@ -377,11 +445,11 @@
             roundRect(ctx, 12, 12, w - 24, h - 24, 10);
             ctx.fill();
 
-            // Header: name + HP
+            // Header: Pokémon name + HP
             ctx.fillStyle = '#333';
             ctx.font = 'bold 22px "Segoe UI", sans-serif';
             ctx.textAlign = 'left';
-            ctx.fillText(pokemonName, 25, 45);
+            ctx.fillText(pokemon.name, 25, 45);
 
             ctx.fillStyle = '#e63946';
             ctx.font = 'bold 18px "Segoe UI", sans-serif';
@@ -392,13 +460,13 @@
             ctx.textAlign = 'right';
             let typeX = w - 25;
             if (type2) {
-                ctx.fillStyle = type2.color;
+                ctx.fillStyle = TYPE_COLORS[pokemon.types[1]].color;
                 roundRect(ctx, typeX - 60, 52, 60, 22, 11);
                 ctx.fill();
                 ctx.fillStyle = '#fff';
                 ctx.font = 'bold 11px "Segoe UI", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(type2.name, typeX - 30, 67);
+                ctx.fillText(pokemon.types[1], typeX - 30, 67);
                 typeX -= 68;
             }
             ctx.fillStyle = type1.color;
@@ -407,7 +475,7 @@
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 11px "Segoe UI", sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(type1.name, typeX - 30, 67);
+            ctx.fillText(pokemon.types[0], typeX - 30, 67);
 
             // Image area
             const imgAreaY = 82;
@@ -422,56 +490,64 @@
             ctx.lineWidth = 2;
             ctx.stroke();
 
-            // Draw uploaded image or placeholder
-            if (uploadedImage) {
-                const maxW = w - 70;
-                const maxH = imgAreaH - 20;
-                let imgW = uploadedImage.width;
-                let imgH = uploadedImage.height;
-                const scale = Math.min(maxW / imgW, maxH / imgH);
-                imgW *= scale;
-                imgH *= scale;
-                const imgX = (w - imgW) / 2;
-                const imgY = imgAreaY + (imgAreaH - imgH) / 2;
+            // Draw fusion image: user photo + Pokémon sprite combined
+            const areaX = 25;
+            const areaW = w - 50;
 
-                ctx.save();
-                roundRect(ctx, imgX, imgY, imgW, imgH, 6);
-                ctx.clip();
-                ctx.drawImage(uploadedImage, imgX, imgY, imgW, imgH);
-                ctx.restore();
-            } else {
-                // Placeholder: draw a pokeball silhouette
-                const cx = w / 2;
-                const cy = imgAreaY + imgAreaH / 2;
-                const radius = 60;
-                ctx.fillStyle = type1.color;
-                ctx.beginPath();
-                ctx.arc(cx, cy, radius, Math.PI, 0);
-                ctx.fill();
-                ctx.fillStyle = '#ddd';
-                ctx.beginPath();
-                ctx.arc(cx, cy, radius, 0, Math.PI);
-                ctx.fill();
-                ctx.fillStyle = '#fff';
-                ctx.beginPath();
-                ctx.arc(cx, cy, 18, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.strokeStyle = '#333';
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.arc(cx, cy, 18, 0, Math.PI * 2);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(cx - radius, cy);
-                ctx.lineTo(cx + radius, cy);
-                ctx.stroke();
+            ctx.save();
+            roundRect(ctx, areaX, imgAreaY, areaW, imgAreaH, 8);
+            ctx.clip();
+
+            if (uploadedImage) {
+                // Draw user photo filling the area (cover fit)
+                const userAspect = uploadedImage.width / uploadedImage.height;
+                const areaAspect = areaW / imgAreaH;
+                let sx, sy, sw, sh;
+                if (userAspect > areaAspect) {
+                    sh = uploadedImage.height;
+                    sw = sh * areaAspect;
+                    sx = (uploadedImage.width - sw) / 2;
+                    sy = 0;
+                } else {
+                    sw = uploadedImage.width;
+                    sh = sw / areaAspect;
+                    sx = 0;
+                    sy = (uploadedImage.height - sh) / 2;
+                }
+                ctx.globalAlpha = 0.55;
+                ctx.drawImage(uploadedImage, sx, sy, sw, sh, areaX, imgAreaY, areaW, imgAreaH);
+                ctx.globalAlpha = 1.0;
+
+                // Type-colored overlay for blend effect
+                ctx.fillStyle = type1.color + '40';
+                ctx.fillRect(areaX, imgAreaY, areaW, imgAreaH);
             }
+
+            // Draw Pokémon sprite on top
+            const spriteMaxH = uploadedImage ? imgAreaH - 10 : imgAreaH - 20;
+            const spriteMaxW = uploadedImage ? areaW * 0.7 : areaW - 40;
+            let spriteW = spriteImg.width;
+            let spriteH = spriteImg.height;
+            const spriteScale = Math.min(spriteMaxW / spriteW, spriteMaxH / spriteH);
+            spriteW *= spriteScale;
+            spriteH *= spriteScale;
+            const spriteX = areaX + (areaW - spriteW) / 2;
+            const spriteY = imgAreaY + (imgAreaH - spriteH) / 2;
+
+            if (uploadedImage) {
+                // With a photo: Pokémon is semi-transparent to create fusion
+                ctx.globalAlpha = 0.75;
+            }
+            ctx.drawImage(spriteImg, spriteX, spriteY, spriteW, spriteH);
+            ctx.globalAlpha = 1.0;
+
+            ctx.restore();
 
             // Pokédex number
             ctx.fillStyle = '#999';
             ctx.font = '12px "Segoe UI", sans-serif';
             ctx.textAlign = 'left';
-            ctx.fillText(`No. ${String(pokedexNum).padStart(4, '0')}`, 25, imgAreaY + imgAreaH + 20);
+            ctx.fillText(`No. ${String(pokemon.id).padStart(4, '0')}`, 25, imgAreaY + imgAreaH + 20);
 
             // Trainer info
             ctx.fillStyle = '#666';
@@ -479,8 +555,14 @@
             ctx.textAlign = 'left';
             ctx.fillText(`Trener: ${playerName}`, 25, imgAreaY + imgAreaH + 40);
 
+            // Fusion label
+            ctx.fillStyle = type1.color;
+            ctx.font = 'italic 12px "Segoe UI", sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText(`${playerName} × ${pokemon.name} Fusjon`, w - 25, imgAreaY + imgAreaH + 20);
+
             // Stats
-            const statsY = imgAreaY + imgAreaH + 60;
+            const statsY = imgAreaY + imgAreaH + 55;
             const statNames = ['Angrep', 'Forsvar', 'Hastighet', 'Spesial', 'Utholdenhet'];
             const barMaxW = w - 160;
 
@@ -493,12 +575,10 @@
                 ctx.textAlign = 'left';
                 ctx.fillText(name, 25, y + 14);
 
-                // Bar background
                 ctx.fillStyle = '#eee';
                 roundRect(ctx, 110, y + 4, barMaxW, 12, 6);
                 ctx.fill();
 
-                // Bar fill
                 const pct = val / 120;
                 const barGrad = ctx.createLinearGradient(110, 0, 110 + barMaxW * pct, 0);
                 barGrad.addColorStop(0, type1.color);
@@ -507,7 +587,6 @@
                 roundRect(ctx, 110, y + 4, Math.max(barMaxW * pct, 1), 12, 6);
                 ctx.fill();
 
-                // Value
                 ctx.fillStyle = '#333';
                 ctx.font = 'bold 13px "Segoe UI", sans-serif';
                 ctx.textAlign = 'right';
@@ -515,10 +594,12 @@
             });
         }
 
-        generateBtn.addEventListener('click', () => {
+        generateBtn.addEventListener('click', async () => {
             const name = nameInput.value.trim();
-            if (!name) {
-                errorEl.textContent = 'Skriv inn navnet ditt først!';
+            if (!name || !uploadedImage) {
+                errorEl.textContent = !name
+                    ? 'Skriv inn navnet ditt!'
+                    : 'Last opp et bilde av deg selv!';
                 errorEl.classList.add('visible');
                 card.classList.remove('visible');
                 return;
@@ -529,24 +610,22 @@
             loadingEl.classList.add('visible');
             generateBtn.disabled = true;
 
-            setTimeout(() => {
-                try {
-                    drawCard(name);
-                    loadingEl.classList.remove('visible');
-                    card.classList.add('visible');
-                } catch (err) {
-                    loadingEl.classList.remove('visible');
-                    errorEl.textContent = 'Feil ved generering: ' + err.message;
-                    errorEl.classList.add('visible');
-                    console.error('Pokemon card error:', err);
-                }
-                generateBtn.disabled = false;
-            }, 500);
+            try {
+                await drawCard(name);
+                loadingEl.classList.remove('visible');
+                card.classList.add('visible');
+            } catch (err) {
+                loadingEl.classList.remove('visible');
+                errorEl.textContent = 'Feil ved generering: ' + err.message;
+                errorEl.classList.add('visible');
+                console.error('Pokemon card error:', err);
+            }
+            generateBtn.disabled = false;
         });
 
         downloadBtn.addEventListener('click', () => {
             const link = document.createElement('a');
-            link.download = 'mitt-pokemon-kort.png';
+            link.download = 'pokemon-fusjon.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
