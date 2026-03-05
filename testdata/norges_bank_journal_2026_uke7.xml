@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<journal>
+  <organisasjon>Norges Bank</organisasjon>
+  <periode fra="2026-02-09" til="2026-02-15"/>
+
+  <!-- Typisk deponeringssak - korrekt skjermet -->
+  <post>
+    <dokumentnummer>25/04495-2</dokumentnummer>
+    <dokumentdato>09.02.2026</dokumentdato>
+    <journaldato>10.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Deponering i gjeldsforhold - Avskjermet</sak>
+    <dokumenttittel>Deponering i gjeldsforhold - Avskjermet</dokumenttittel>
+    <saksansvarlig>FIN Financial Reporting</saksansvarlig>
+    <saksbehandler>FIN Financial Reporting</saksbehandler>
+  </post>
+
+  <!-- Ugradert dokument - korrekt -->
+  <post>
+    <dokumentnummer>25/09484-3</dokumentnummer>
+    <dokumentdato>27.01.2026</dokumentdato>
+    <journaldato>12.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Swaps Monitor Publications, Inc.</til_fra>
+    <sak>Statsgjeld - Eksterne henvendelser 2026</sak>
+    <dokumenttittel>Information on Syndication announcement</dokumenttittel>
+    <saksansvarlig>MA Statsgjeld</saksansvarlig>
+    <saksbehandler>MA Statsgjeld</saksbehandler>
+  </post>
+
+  <!-- Attest - ugradert -->
+  <post>
+    <dokumentnummer>26/00791-1</dokumentnummer>
+    <dokumentdato>10.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Ingrid Kristine Hoff</til_fra>
+    <sak>Innleide - NBA Informasjonsforvaltning</sak>
+    <dokumenttittel>Attest - Ingrid K. Hoff</dokumenttittel>
+    <saksansvarlig>NBA Informasjonsforvaltning (INFO)</saksansvarlig>
+    <saksbehandler>NBA Informasjonsforvaltning (INFO)</saksbehandler>
+  </post>
+
+  <!-- Fireparts arbeidsgruppe - sbl 5-1 -->
+  <post>
+    <dokumentnummer>25/03776-24</dokumentnummer>
+    <dokumentdato>02.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Sbl § 5-1 annet ledd</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>FINANSDEPARTEMENTET FINANSTILSYNET BANKENES SIKRINGSFOND Sikringsfondet</til_fra>
+    <sak>Fireparts arbeidsgruppe som oppfolging av finanskriseoevelse 2024</sak>
+    <dokumenttittel>Fireparts arbeidsgruppe - Endelige dokumenter</dokumenttittel>
+    <saksansvarlig>FST Bankanalyse</saksansvarlig>
+    <saksbehandler>FST Bankanalyse</saksbehandler>
+  </post>
+
+  <!-- Rekrutteringspost med ENGELSK hjemmel (AVVIK) -->
+  <post>
+    <dokumentnummer>26/00426-4</dokumentnummer>
+    <dokumentdato>25.01.2026</dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>FoIA § 13 CBA § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Assisterende direktor FST Makrotilsyn, Norges Bank - st. ref. 5065591102</sak>
+    <dokumenttittel>Soknad og CV - Assisterende direktor - st. ref. (5065591102) - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Makrotilsyn</saksansvarlig>
+    <saksbehandler>FST Makrotilsyn</saksbehandler>
+  </post>
+
+  <!-- Annen rekrutteringspost med engelsk hjemmel -->
+  <post>
+    <dokumentnummer>26/00426-5</dokumentnummer>
+    <dokumentdato>26.01.2026</dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>FoIA § 13 CBA § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Assisterende direktor FST Makrotilsyn, Norges Bank - st. ref. 5065591102</sak>
+    <dokumenttittel>Soknad og CV - Assisterende direktor - st. ref. (5065591102) - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Makrotilsyn</saksansvarlig>
+    <saksbehandler>FST Makrotilsyn</saksbehandler>
+  </post>
+
+  <!-- Mistenkelig transaksjon til Okokrim -->
+  <post>
+    <dokumentnummer>25/05664-3</dokumentnummer>
+    <dokumentdato>05.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>OKOKRIM</til_fra>
+    <sak>Soknad om veksling av ugyldige sedler og mynter - Avskjermet</sak>
+    <dokumenttittel>Rapport om mistenkelig transaksjon - MT-0002 - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Kontante Betalingsmidler</saksansvarlig>
+    <saksbehandler>NBA GRC</saksbehandler>
+  </post>
+
+  <!-- Etikkradet - sbl 5-1 -->
+  <post>
+    <dokumentnummer>26/01003-1</dokumentnummer>
+    <dokumentdato>11.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Sbl § 5-1 annet ledd</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>FINANSDEPARTEMENTET</til_fra>
+    <sak>Etikkradet for Statens pensjonsfond utland</sak>
+    <dokumenttittel>Etikkradet for Statens pensjonsfond utland</dokumenttittel>
+    <saksansvarlig>Stab</saksansvarlig>
+    <saksbehandler>Stab</saksbehandler>
+  </post>
+
+  <!-- Fortrolig (F) - politisak -->
+  <post>
+    <dokumentnummer>26/00596-5</dokumentnummer>
+    <dokumentdato>06.02.2026</dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>F</gradering>
+    <unntatt_offentligheten>Beskyttelsesinstruksen § 4 jf offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Sor-Ost Politidistrikt</til_fra>
+    <sak>Henvendelser fra politiet - Sok og sporing sedler</sak>
+    <dokumenttittel>Anmodning om opplysninger om beslaglagte pengesedler i straffesak</dokumenttittel>
+    <saksansvarlig>FST Kontante Betalingsmidler</saksansvarlig>
+    <saksbehandler>FST Kontante Betalingsmidler</saksbehandler>
+  </post>
+
+  <!-- Fortrolig (F) - juridisk vurdering -->
+  <post>
+    <dokumentnummer>26/01102-1</dokumentnummer>
+    <dokumentdato>11.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>F</gradering>
+    <unntatt_offentligheten>Beskyttelsesinstruksen § 4 jf offl § 24 tredje ledd forste punktum</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Juridisk vurdering - Avskjermet</sak>
+    <dokumenttittel>Oversendelse av dokumentasjon</dokumenttittel>
+    <saksansvarlig>Norges Bank Administrasjon (NBA)</saksansvarlig>
+    <saksbehandler>Norges Bank Administrasjon (NBA)</saksbehandler>
+  </post>
+
+  <!-- Tildelingsbeslutning - anskaffelse med offl 23 -->
+  <post>
+    <dokumentnummer>26/00148-9</dokumentnummer>
+    <dokumentdato>09.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 23 tredje ledd</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Minikonkurranse - Forretningsarkitekter 2357CD</sak>
+    <dokumenttittel>Tildelingsbeslutning - Minikonkurranse - Forretningsarkitekter 2357CD</dokumenttittel>
+    <saksansvarlig>FST IBO ARK</saksansvarlig>
+    <saksbehandler>FIN Procurement</saksbehandler>
+  </post>
+
+  <!-- Vekslingssoknad med gammel dokumentdato (FORSINKET) -->
+  <post>
+    <dokumentnummer>26/01039-1</dokumentnummer>
+    <dokumentdato>11.11.2025</dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Soknad om veksling av ugyldige sedler og mynter - Avskjermet</sak>
+    <dokumenttittel>Skjema for veksling - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Kontante Betalingsmidler</saksansvarlig>
+    <saksbehandler>FST Kontante Betalingsmidler</saksbehandler>
+  </post>
+
+  <!-- Vekslingssoknad med enda eldre dokumentdato (KRITISK FORSINKET) -->
+  <post>
+    <dokumentnummer>26/01040-1</dokumentnummer>
+    <dokumentdato>18.06.2025</dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Soknad om veksling av ugyldige sedler og mynter - Avskjermet</sak>
+    <dokumenttittel>Skjema for veksling - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Kontante Betalingsmidler</saksansvarlig>
+    <saksbehandler>FST Kontante Betalingsmidler</saksbehandler>
+  </post>
+
+  <!-- IMF - offl 20 -->
+  <post>
+    <dokumentnummer>26/01074-1</dokumentnummer>
+    <dokumentdato>05.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 20 forste ledd bokstav b</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>FINANSDEPARTEMENTET</til_fra>
+    <sak>IMF - administrativ sak - Avskjermet</sak>
+    <dokumenttittel>IMF - Avskjermet</dokumenttittel>
+    <saksansvarlig>PPO Pengepolitisk kommunikasjon</saksansvarlig>
+    <saksbehandler>PPO Pengepolitisk kommunikasjon</saksbehandler>
+  </post>
+
+  <!-- IMF - offl 21 -->
+  <post>
+    <dokumentnummer>26/01074-2</dokumentnummer>
+    <dokumentdato>10.02.2026</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 21</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>FINANSDEPARTEMENTET</til_fra>
+    <sak>IMF - administrativ sak - Avskjermet</sak>
+    <dokumenttittel>IMF - Avskjermet</dokumenttittel>
+    <saksansvarlig>PPO Pengepolitisk kommunikasjon</saksansvarlig>
+    <saksbehandler>PPO Pengepolitisk kommunikasjon</saksbehandler>
+  </post>
+
+  <!-- Dokument med manglende dokumentdato -->
+  <post>
+    <dokumentnummer>25/07938-39</dokumentnummer>
+    <dokumentdato></dokumentdato>
+    <journaldato>09.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>STANDARD ONLINE AS</til_fra>
+    <sak>AI og Innovasjon - Moter og dialog med eksterne 2025-2026</sak>
+    <dokumenttittel>Presentasjon pa TENK KI</dokumenttittel>
+    <saksansvarlig>IT Arkitektur og prosjekt - Prosjekt- og portefoljestyring</saksansvarlig>
+    <saksbehandler>NBA Informasjonsforvaltning (INFO)</saksbehandler>
+  </post>
+
+  <!-- Skandinavisk swap-avtale - F-gradert -->
+  <post>
+    <dokumentnummer>26/01079-1</dokumentnummer>
+    <dokumentdato>11.02.2026</dokumentdato>
+    <journaldato>12.02.2026</journaldato>
+    <gradering>F</gradering>
+    <unntatt_offentligheten>Beskyttelsesinstruksen § 4 jf offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Danmarks Nationalbank</til_fra>
+    <sak>Signerte swapavtaler med Riksbanken og Nationalbanken + korrespondanse</sak>
+    <dokumenttittel>DKK-NOK Signed swap agreement 12.11.2020</dokumenttittel>
+    <saksansvarlig>FST Bankanalyse</saksansvarlig>
+    <saksbehandler>FST Bankanalyse</saksbehandler>
+  </post>
+
+  <!-- EU-kontroll med avskjermet registreringsnummer -->
+  <post>
+    <dokumentnummer>22/05279-19</dokumentnummer>
+    <dokumentdato>07.02.2026</dokumentdato>
+    <journaldato>10.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>STATENS VEGVESEN</til_fra>
+    <sak>EU-kontroll og avgifter - Kjoretoy - Fra 2022</sak>
+    <dokumenttittel>Fristen for EU-kontroll naermer seg for registreringsnummer - Avskjermet</dokumenttittel>
+    <saksansvarlig>NBA SIB Operativ sikkerhet</saksansvarlig>
+    <saksbehandler>NBA Sikkerhet og beredskap (SIB)</saksbehandler>
+  </post>
+
+  <!-- Innsynskrav fra E24 - ugradert -->
+  <post>
+    <dokumentnummer>26/01071-1</dokumentnummer>
+    <dokumentdato>09.02.2026</dokumentdato>
+    <journaldato>10.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>E24</til_fra>
+    <sak>Innsynskrav - E24 - Korrespondanse mellom Terje Rod-Larsen og Oljefondet fra 01.01.2014-31.12.2020</sak>
+    <dokumenttittel>Innsynskrav - E24 - Korrespondanse mellom Terje Rod-Larsen og Oljefondet fra 01.01.2014-31.12.2020</dokumenttittel>
+    <saksansvarlig>NBIM Staff</saksansvarlig>
+    <saksbehandler>NBIM Staff - Governance Office</saksbehandler>
+  </post>
+
+  <!-- Vekslingsdokument med mulig feil arstall -->
+  <post>
+    <dokumentnummer>26/01103-1</dokumentnummer>
+    <dokumentdato>10.02.2025</dokumentdato>
+    <journaldato>11.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 13 jf sbl § 5-2</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>Avskjermet</til_fra>
+    <sak>Soknad om veksling av ugyldige sedler og mynter - Avskjermet</sak>
+    <dokumenttittel>Skjema for veksling - Avskjermet</dokumenttittel>
+    <saksansvarlig>FST Kontante Betalingsmidler</saksansvarlig>
+    <saksbehandler>FST Kontante Betalingsmidler</saksbehandler>
+  </post>
+
+  <!-- Horing - ugradert -->
+  <post>
+    <dokumentnummer>26/01160-1</dokumentnummer>
+    <dokumentdato>12.02.2026</dokumentdato>
+    <journaldato>13.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>TOLLETATEN</til_fra>
+    <sak>Horing - endringer i vareforselforskriften - Digitoll nr. 7 (valuta)</sak>
+    <dokumenttittel>Horingsutsendelse om endringer i vareforselforskriften - Digitoll nr. 7 (valuta)</dokumenttittel>
+    <saksansvarlig>NBA Juridisk (JUS)</saksansvarlig>
+    <saksbehandler>NBA Juridisk (JUS)</saksbehandler>
+  </post>
+
+  <!-- Tilsyn med Venastul -->
+  <post>
+    <dokumentnummer>25/07372-2</dokumentnummer>
+    <dokumentdato>13.02.2026</dokumentdato>
+    <journaldato>13.02.2026</journaldato>
+    <gradering>U</gradering>
+    <unntatt_offentligheten></unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>MIDT-GUDBRANDSDAL BRANNVESEN</til_fra>
+    <sak>Venastul - Tilsyn av fyringsanlegg og brannsikkerhet i bolig</sak>
+    <dokumenttittel>Rapport etter gjennomfort tilsyn for Venastul Norges bank Feriested</dokumenttittel>
+    <saksansvarlig>Venastul</saksansvarlig>
+    <saksbehandler>Venastul</saksbehandler>
+  </post>
+
+  <!-- Tilsynsprosjekt - offl 23 med mange mottakere -->
+  <post>
+    <dokumentnummer>26/00332-2</dokumentnummer>
+    <dokumentdato>11.02.2026</dokumentdato>
+    <journaldato>12.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 23 tredje ledd</unntatt_offentligheten>
+    <retning>U</retning>
+    <til_fra>Avskjermet Avskjermet Avskjermet Avskjermet Avskjermet Avskjermet Avskjermet</til_fra>
+    <sak>Tilsynsprosjekt: Norges Banks behandling av varslingssaker</sak>
+    <dokumenttittel>Tilleggsinformasjon - Tilsynsprosjekt: Norges Banks behandling av varslingssaker - Sporsmal og svar</dokumenttittel>
+    <saksansvarlig>Tilsynssekretariatet</saksansvarlig>
+    <saksbehandler>FIN Procurement</saksbehandler>
+  </post>
+
+  <!-- Byggesak - offl 24 -->
+  <post>
+    <dokumentnummer>26/00079-6</dokumentnummer>
+    <dokumentdato>09.02.2026</dokumentdato>
+    <journaldato>10.02.2026</journaldato>
+    <gradering>UO</gradering>
+    <unntatt_offentligheten>Offl § 24 tredje ledd forste punktum</unntatt_offentligheten>
+    <retning>I</retning>
+    <til_fra>OSLO KOMMUNE PLAN- OG BYGNINGSETATEN</til_fra>
+    <sak>4571 - Garderober -2 - Offentlig myndighet</sak>
+    <dokumenttittel>Tillatelse til tiltak - Bankplassen 2 - Bruksendring fra lager til garderober</dokumenttittel>
+    <saksansvarlig>NBA EIE Prosjekt og utvikling</saksansvarlig>
+    <saksbehandler>NBA EIE Prosjekt og utvikling</saksbehandler>
+  </post>
+
+</journal>
